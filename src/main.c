@@ -1,17 +1,24 @@
-#include "main.h"
+#include "strings.h"
+#include "function.h"
 
 int main()
 {
-	char str[MAX_LENGHT];
-	char string[MAX_LENGHT];
 
-	if (input(str) != 0) {
+/*	if (input(str) != 0) {
 		printf("Некорректный ввод\n");
 	}
+*/
+	char str[MAX_LENGHT];
+	
+	int inp = input(string);
 
 	printf("Строка: %s\n", str);
+    
+    if(inp == 1) {
+        output(string, check(string), process(string));
+    }
 
-	if(check(str) != 0) {
+/*	if(system(str) != 0) {
 		printf("OS: Windows\n");
 		process(str, string);
 	}else{
@@ -19,6 +26,6 @@ int main()
 		process(str, string);
 		printf("Max dir name: %s\n", string);
 	}
-		
+*/		
 	return 0;
 }
