@@ -12,14 +12,15 @@ $(TARGET): build/src/main.o build/src/function.o build/src/strings.o
 build/src/main.o: src/main.c
 		$(CC) $(CFLAGS) src/main.c -o $@ 
 
-build/src/function.o: src/func.c
-		$(CC) $(CFLAGS) src/func.c -o $@ 
+build/src/function.o: src/function.c
+		$(CC) $(CFLAGS) src/function.c -o $@ 
 
-build/src/strings.o: src/string.c
+build/src/strings.o: src/strings.c
 		$(CC) $(CFLAGS) src/strings.c -o $@
 
 
 .PHONY: all clean
 clean:	
 	rm -f build/src/*.o
+	rm -f build/test/*.o
 	rm -f bin/*

@@ -3,5 +3,6 @@
 #include <stdio.h>
 
 int slen(char *string);
+int sspn(const char *string);
 
 #endif

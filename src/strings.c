@@ -14,7 +14,7 @@ int slen(char *string)
 
 int sspn(const char *string)
 {
-    char arr[] = {':', '*', '?', '"', '<', '>', '|'};
+    char arr[] = {'*', '?', '"', '<', '>', '|'};
     int i, j;
 
     for (i = 0; string[i] != '\0'; i++) {

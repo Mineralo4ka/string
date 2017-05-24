@@ -7,7 +7,9 @@ enum {
 };
 
 int input(char str[MAX_LENGHT]);
-int systems(char ch[MAX_LENGHT]);
-int process(char ch[MAX_LENGHT], char string[MAX_LENGHT]);
+int process(char *string);
+int output(char *string, int error);
+int systems(char *string);
+int check(char *string);
 
 #endif

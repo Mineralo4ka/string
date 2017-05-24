@@ -1,4 +1,5 @@
 #include "function.h"
+#include "strings.h"
 
 int input(char str[MAX_LENGHT])
 {
@@ -23,19 +24,17 @@ int input(char str[MAX_LENGHT])
     return 1;
 }
 
-int process(char ch[MAX_LENGHT], char string[MAX_LENGHT])
+int process(char *string)
 {
     int token = 0;
 
-    for (int i = 0; i < MAX_LENGHT; ++i) {
-        if ((ch[i] == '/') || (ch[i] == '\\')) {
+    for (int i = 0; string[i] != '\0'; ++i) {
+        if ((string[i] == '/') || (string[i] == '\\')) {
             token++;
         }
-        if (ch[i] == '\0') {
-            printf("Depth: %d\n", token);
-            break;
-        }
     }
+
+    printf("Depth: %d\n", token);
 
     return 0;
 }
@@ -51,25 +50,29 @@ int check(char *string)
     return 0; 
 }
 
-int systems(char ch[MAX_LENGHT])
+int systems(char *string)
 {
 	int i = 0;
 
-	while(i != 2) {
-		if((ch[i] >= 65 && ch[i] <= 90) || (ch[i] >= 97 && ch[i] <= 122)) {
-			if (ch[0] == '/') {
-				return 0;
-			}
+	if((string[i] >= 65 && string[i] <= 90) || (string[i] >= 97 && string[i] <= 122)) {
+		if (string[i]  == '/') {
 			return 1;
-		} else {
-			i++;
 		}
-	}
+        return 0;
+    }
 
-	return 0;
+    return 1;
 }
 
-int output(const char *string, int error, int code)
+int output(char *string, int error)
 {
+    if(error == 0) {
+        if(systems(string) == 0) {
+            printf("OS: Windows\n");
+        }else {
+            printf("OS: Linux\n");
+        }
+    }
 
+    return 0;
 }
