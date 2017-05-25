@@ -1,6 +1,6 @@
 TARGET := bin/string
 CC := gcc
-CFLAGS :=  -Wall -Werror -c
+CFLAGS :=  -Wall -g -O0 -Werror -c
 LFLAGS := -I thirdparty -I src -c
 
 all: $(TARGET)

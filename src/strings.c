@@ -30,3 +30,38 @@ int sspn(const char *string)
     
     return 0;
 }
+
+char *schr(const char *str, const char item)
+{
+    while(*str && *str != item) {
+        ++str;
+    }
+    return (*str) ? (char *) str : NULL;
+}
+
+char *sstok(char *str, const char *delim) 
+{
+    static char *buffer;
+    
+    if(str) {
+        buffer = str;
+        while(*buffer && schr(delim, *buffer)) {
+            *buffer++ = '\0';
+        }
+    }
+    
+    if(! *buffer) {
+        return NULL;
+    }
+    
+    str = buffer;
+     
+    while(*buffer && ! schr(delim, *buffer)) {
+        ++buffer;
+    }
+    while(*buffer && schr(delim, *buffer)) {
+        *buffer++ = '\0';
+    }
+    
+    return str;
+}
