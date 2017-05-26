@@ -10,7 +10,6 @@ int main()
     
     if(ent == 1) {
         output(string, check(string));
-        process(string);
     } else if(ent == 0) {
     	printf("Некорректный ввод\n");
     }

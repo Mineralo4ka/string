@@ -24,7 +24,7 @@ int input(char str[MAX_LENGHT])
     return 1;
 }
 
-int process(char *string)
+int process(char *string, int code)
 {
     int token = 0;
     char **a = malloc((slen(string) + 1) * sizeof(char *));
@@ -37,30 +37,62 @@ int process(char *string)
     }
     printf("Depth: %d\n", token);
 
-    int i = 0;
-    a[i++] = sstok(string, "/\0");
-    while(a[i - 1] != NULL) {
-        a[i++] = sstok(NULL, "/\0");
-    }
-
-    
-    printf("Путь: /");
-    for(int k = 0; k < i - 1; ++k) {
-        if (max < slen(a[k])) {
-            max = slen(a[k+1]);
+    if (code == 1) {
+        int i = 0;
+        a[i++] = sstok(string, "/\0");
+        while(a[i - 1] != NULL) {
+            a[i++] = sstok(NULL, "/\0");
         }
-        printf("%s/", a[k]);
+        
+        //printf("Путь: /");
+        for(int k = 0; k < i - 1; ++k) {
+            if (max < slen(a[k])) {
+                max = slen(a[k+1]);
+            }
+            //printf("%s/", a[k]);
+        }
+        
+        printf("Max dir name: ");
+
+        for (int k = 0; k < i - 1 ; ++k) {
+            if (slen(a[k]) == max) {
+                printf("%s ", a[k]);
+            }
+        }
+        printf("\nMax dir lenght: %d\n", max);
+    } else if (code == 0) {
+        int i = 0;
+        a[i++] = sstok(string, ":\\\0");
+
+        while(a[i - 1] != NULL) {
+            a[i++] = sstok(NULL, ":\\\0");
+        }
+
+        //printf("Путь: ");
+        for(int k = 0; k < i - 1; ++k) {
+            if (max < slen(a[k])) {
+                max = slen(a[k+1]);
+            }
+            //printf("%s/", a[k]);
+        }
+        printf("Max dir name: ");
+
+        for (int k = 0; k < i - 1 ; ++k) {
+            if (slen(a[k]) == max) {
+                printf("%s ", a[k]);
+            }
+        }
+        printf("\nMax dir lenght: %d\n", max);
     }
-    printf("\nMax dir lenght: %d\n", max);
-    
-    printf("%s\n", a[i - 2]);
+    free(a);
+
     return 0;
 }
 
 int check(char *string)
 {   
     if (slen(string) > MAX_LENGHT) {
-        return -1;
+        return 1;
     } else if (sspn(string) > 0) {
         return sspn(string);
     }
@@ -87,8 +119,10 @@ int output(char *string, int error)
     if(error == 0) {
         if(systems(string) == 0) {
             printf("OS: Windows\n");
+            process(string, 0);
         }else {
             printf("OS: Linux\n");
+            process(string, 1);
         }
     }
 

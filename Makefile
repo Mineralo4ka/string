@@ -1,9 +1,10 @@
 TARGET := bin/string
+TARGET_TEST := bin/string_test
 CC := gcc
-CFLAGS :=  -Wall -g -O0 -Werror -c
+CFLAGS :=  -Wall -Werror -c
 LFLAGS := -I thirdparty -I src -c
 
-all: $(TARGET)
+all: $(TARGET) $(TARGET_TEST)
 
 $(TARGET): build/src/main.o build/src/function.o build/src/strings.o
 		$(CC) build/src/main.o build/src/function.o build/src/strings.o -o $@
@@ -19,8 +20,18 @@ build/src/strings.o: src/strings.c
 		$(CC) $(CFLAGS) src/strings.c -o $@
 
 
+$(TARGET_TEST): build/test/strings_test.o build/test/main.o build/src/strings.o build/src/function.o
+		$(CC) build/test/strings_test.o build/test/main.o build/src/strings.o build/src/function.o -o $@
+
+
+build/test/strings_test.o: test/strings_test.c   
+		$(CC) $(LFLAGS) test/strings_test.c -o $@
+
+build/test/main.o: test/main.c 
+		$(CC) -I thirdparty -c test/main.c -o $@
+
 .PHONY: all clean
 clean:	
-	rm -f build/src/*.o
-	rm -f build/test/*.o
-	rm -f bin/*
+	rm -rf build/src/*.o
+	rm -rf build/test/*.o
+	rm -rf bin/*

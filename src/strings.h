@@ -4,5 +4,7 @@
 
 int slen(char *string);
 int sspn(const char *string);
+char *schr(const char *str, const char item);
+char *sstok(char *str, const char *delim);
 
 #endif
