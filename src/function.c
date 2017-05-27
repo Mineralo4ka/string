@@ -1,5 +1,6 @@
 #include "function.h"
 #include "strings.h"
+#include <stdio.h>
 
 int input(char str[MAX_LENGHT])
 {
@@ -18,7 +19,7 @@ int input(char str[MAX_LENGHT])
     if(i < 1) {
         return 0;
     } else if(i >= MAX_LENGHT - 1) {
-        str[MAX_LENGHT - 1] = '\0';
+        str[MAX_LENGHT] = '\0';
     }
 
     return 1;
@@ -44,19 +45,17 @@ int process(char *string, int code)
             a[i++] = sstok(NULL, "/\0");
         }
         
-        //printf("Путь: /");
-        for(int k = 0; k < i - 1; ++k) {
+        for(int k = 0; k < i - 3; ++k) {
             if (max < slen(a[k])) {
-                max = slen(a[k+1]);
+                max = slen(a[k + 1]);
             }
-            //printf("%s/", a[k]);
         }
         
         printf("Max dir name: ");
 
-        for (int k = 0; k < i - 1 ; ++k) {
+        for (int k = 0; k < i - 1; ++k) {
             if (slen(a[k]) == max) {
-                printf("%s ", a[k]);
+                printf(CYN "%s" RESET "; ", a[k]);
             }
         }
         printf("\nMax dir lenght: %d\n", max);
@@ -68,18 +67,16 @@ int process(char *string, int code)
             a[i++] = sstok(NULL, ":\\\0");
         }
 
-        //printf("Путь: ");
-        for(int k = 0; k < i - 1; ++k) {
+        for(int k = 0; k < i - 3; ++k) {
             if (max < slen(a[k])) {
-                max = slen(a[k+1]);
+                max = slen(a[k + 1]);
             }
-            //printf("%s/", a[k]);
         }
         printf("Max dir name: ");
 
         for (int k = 0; k < i - 1 ; ++k) {
             if (slen(a[k]) == max) {
-                printf("%s ", a[k]);
+                printf( MAG "%s" RESET "; ", a[k]);
             }
         }
         printf("\nMax dir lenght: %d\n", max);
@@ -95,6 +92,8 @@ int check(char *string)
         return 1;
     } else if (sspn(string) > 0) {
         return sspn(string);
+    } else if (sspn_l(string) < 0) {
+        return sspn_l(string);
     }
 
     return 0; 
@@ -118,10 +117,10 @@ int output(char *string, int error)
 {
     if(error == 0) {
         if(systems(string) == 0) {
-            printf("OS: Windows\n");
+            printf("OS: " BLU "Windows" RESET "\n");
             process(string, 0);
         }else {
-            printf("OS: Linux\n");
+            printf("OS: " GRN "Linux" RESET "\n");
             process(string, 1);
         }
     }

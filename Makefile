@@ -1,7 +1,7 @@
 TARGET := bin/string
 TARGET_TEST := bin/string_test
 CC := gcc
-CFLAGS :=  -Wall -Werror -c
+CFLAGS :=  -Wall -g -O0 -c
 LFLAGS := -I thirdparty -I src -c
 
 all: $(TARGET) $(TARGET_TEST)

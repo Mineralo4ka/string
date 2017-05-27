@@ -1,10 +1,11 @@
 #include "strings.h"
+#include <stdio.h>
 
 int slen(char *string)
 {   
    	int i = 0;
 
-    while(*string != '\0') {
+    while(*string && *string != '\0') {
         i++;
         string++;
     }
@@ -14,12 +15,12 @@ int slen(char *string)
 
 int sspn(const char *string)
 {
-    char arr[] = {'*', '?', '"', '<', '>', '|'};
+    char arr[] = {':', '*', '?', '"', '<', '>', '|'};
     int i, j;
 
     for (i = 0; string[i] != '\0'; i++) {
         for (j = 0; j < slen(arr); j++) {
-            if ((string[i] == arr[0]) && (string[i + 1] == '/')) {
+            if ((string[i] == arr[0]) && ((string[i + 1] == '/') || (string[i + 1] == '\\'))) {
                 continue;
             }
             if (string[i] == arr[j]) {
@@ -28,6 +29,21 @@ int sspn(const char *string)
         }
     }
     
+    return 0;
+}
+
+int sspn_l(const char *string)
+{
+    char arr[] = {':', '*', '?', '"', '<', '>', '|'};
+    
+    for(int i = 0; string[i] != '\0'; i++) {
+        for(int k = 0; k < slen(arr); k++) {
+            if(string[i] == arr[k] || ((string[i] == '/') && (string[i + 1] == '/'))) {
+                return -1;
+            }
+        }
+    }
+
     return 0;
 }
 

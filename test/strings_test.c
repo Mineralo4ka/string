@@ -90,3 +90,13 @@ CTEST(arithmetic_suite, income_check_4)
 	int expected = 6;
 	ASSERT_EQUAL(expected, result);
 }
+
+CTEST(slen_test, correct_length_1)
+{
+    char *string = "/home/qwert/sandbox/openmpi/1.6.5/lib/OpenMPI/mca_btlf";
+
+    int result = slen(string);
+
+	int expected = 54;
+    ASSERT_EQUAL(expected, result); 
+}
